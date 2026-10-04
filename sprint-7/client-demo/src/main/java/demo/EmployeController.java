@@ -13,11 +13,11 @@ public class EmployeController {
     }
 
     @Url(value = "/employe/save", method = "POST")
-    public ModAndView save(String nom, int age, double salaire) {
+    public ModAndView save(Employe employe) {
         ModAndView result = new ModAndView("employe-success");
-        result.addValue("nom", nom);
-        result.addValue("age", age);
-        result.addValue("salaire", salaire);
+        result.addValue("nom", employe.getNom());
+        result.addValue("age", employe.getAge());
+        result.addValue("salaire", employe.getSalaire());
         return result;
     }
 }

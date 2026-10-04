@@ -2,6 +2,8 @@ package framework.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -154,11 +156,69 @@ public class FrontController extends HttpServlet {
                 continue;
             }
 
-            String rawValue = req.getParameter(parameter.getName());
-            values[i] = convertParameter(rawValue, parameterType, parameter.getName());
+            if (isSimpleParameterType(parameterType)) {
+                String rawValue = req.getParameter(parameter.getName());
+                values[i] = convertParameter(rawValue, parameterType, parameter.getName());
+            } else {
+                values[i] = bindObject(parameterType, req);
+            }
         }
 
         return values;
+    }
+
+    private boolean isSimpleParameterType(Class<?> parameterType) {
+        return parameterType == String.class
+                || parameterType == int.class || parameterType == Integer.class
+                || parameterType == long.class || parameterType == Long.class
+                || parameterType == double.class || parameterType == Double.class
+                || parameterType == float.class || parameterType == Float.class
+                || parameterType == short.class || parameterType == Short.class
+                || parameterType == byte.class || parameterType == Byte.class
+                || parameterType == boolean.class || parameterType == Boolean.class
+                || parameterType == char.class || parameterType == Character.class
+                || parameterType.isEnum();
+    }
+
+    private Object bindObject(Class<?> objectType, HttpServletRequest req)
+            throws ServletException {
+        final Object object;
+        try {
+            object = objectType.getDeclaredConstructor().newInstance();
+        } catch (ReflectiveOperationException e) {
+            throw new ServletException("Object parameter type '" + objectType.getName()
+                    + "' must have a no-argument constructor", e);
+        }
+
+        try {
+            for (PropertyDescriptor property : Introspector
+                    .getBeanInfo(objectType, Object.class).getPropertyDescriptors()) {
+                Method setter = property.getWriteMethod();
+                if (setter == null) {
+                    continue;
+                }
+
+                String rawValue = req.getParameter(property.getName());
+                if (rawValue == null) {
+                    continue;
+                }
+
+                Class<?> propertyType = property.getPropertyType();
+                if (!isSimpleParameterType(propertyType)) {
+                    throw new ServletException("Unsupported nested object property '"
+                            + property.getName() + "' on type " + objectType.getName());
+                }
+
+                Object value = convertParameter(rawValue, propertyType, property.getName());
+                setter.invoke(object, value);
+            }
+        } catch (java.beans.IntrospectionException | IllegalAccessException
+                | InvocationTargetException e) {
+            throw new ServletException("Unable to bind request parameters to object type '"
+                    + objectType.getName() + "'", e);
+        }
+
+        return object;
     }
 
     private Object convertParameter(String rawValue, Class<?> parameterType, String parameterName)
