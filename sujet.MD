@@ -33,53 +33,45 @@ on l'invoquena par la valeur
 
 # Sprint 8 : 
 input type file 
-rehefa tong any anaty serveur de misy type hoe file ve ? 
-misy fichier misy file tonga ao 
-manao formulaire de le actions any le formumaire zany makany 
-formulaire ajout methode save 
-mitontona ao am save de manana instance de atreo loaa
+à l'arriver dans le serveur , est ce qu'on y trouve type file ?
+il y a un ficher qui contient file qui arrive ,du coup on fait une formulaire et ses actions y va
+formulaire ajout methode save (instance)
 
-raha amny champ anah formulaire misy type file 
+si dans champ formulaire type file
 mila tonga ao anaty champ
-stockena any anaty serveur ve sa base de donnée 
-aona ny atongavany ao am type d'actions any zany 
+on stocke dans serveur ou sa base de donnée ?
+comment il arrive dans son type d'action alors ?
+prend parametre 
 
-mandray parametre 
+creation objet
+traitement file 
+dans objet employe prend CIN type byte => on bind
+avoir class employe model employe nom , .... 
+employe scan cin (exemple)  => type tableau byte
+ajout map dans objet 
 
-manamboatra objet (okey)
-traitement anah file 
-ao anaty objet employe mandray CIN type byte => de bindena 
-manana class employe model employe nom , .... 
-employe scan cin ohatra  => type tableau byte
-asiana map no mety ao anaty objet 
-
-micreer class de le classe tsika no atao type any  => mapfile attribut filename ,...  de le tableau anah byte 
-ohatra andefa any le recto any le zavatra de instancena aty amny frameword , recto cin ao anaty input rectoCIN type file
-raha misy type rectoCIN misy amny parametre de micreer instance anah mapfile de azo alohany request de alaiko ny anarany aveo
+creer class , notre classe à mettre dans son type  => mapfile attribut filename ,... tableau byte 
+exemple : envoye de la recto à instance vers frameword , rrecto cin dans input recto CIN type file
+s'il y a type rectoCIN dans parametre donc on creer instance de mapfile , on l'a avant request et on prend son nom apres
 
 # Sprint 9 : session
-ataovy izay ahatonga any le session any le utilisateur disponible ao anaty controlleur any le developpeur
 controlleur dev :
-comportement servlet , instance ray indrayy iany de in no mamaly requette retraretra , ao anaty contexte 
-clé anarany le controlleur de valeur le instance 
-de mijery hoe misy na tsia 
-manisy attribut ao anaty controlleur 
-parametre methode d'actions foana 
-manaboatra class session atsika mahita aniny le parametre atsika de injectena 
-raha ohatra ve isakiny methode d'actions izay mila session , de icree anio class io foana ve izy ? problem anah mémoire (il faut éviter)
+comportement servlet , un seul instance qui repond a toutes les requette dans contexte
+clé : nom du controlleur et valeur l'instance
+ajout attribut dans controlleur 
+parametre methode d'actions 
+creer class session pour voir le parametre pour injecter
+si dans methode d'action besoin de session , doit il recreer toujours ce class ? probleme memoire (il faut eviter)
 class methode standard , afaka mi suppr ao anaty variable d'actions 
 Map session 
-pour chaque session ray iany , 
-creer class ray mysession de misy map,string, objet , asiana methode utilitaire (micrecuperer variable )
-type vaovao creen tsiak in apetraka aoa anaty methode d'actions 
-de afaka milalao supp,retraretra 
-cote framework : traintement paramettre , type session antsiak de micree instance => map ao anatiny fenoina a partir httppSession , boucle de apetraka ao
-vita ny invoke de mila atao à jour le httpsession 
-tazonmina ny anarany le variable nasina any le Map de in aveo no tsindrina amny in le httpsession rhf vita le invoke any le session 
-tsindrina => bouclena fotsiny loa,tanjona mba tsy misy httppSession direct be any amny le développeur ,
-le session loa no atao fa mbola tsy atao le instance loa 
-de jerena ny coté performance am larobia
-Vous avez envoyé
+pour chaque session une seule suffira , 
+creer class  mysessionavec map,string, objet , methode utilitaire (pour recuperer variable )
+nouveau type à creer pour mettre dans methode d'actions 
+peu jouer avec tout les supp
+cote framework : traintement paramettre , type session pour cree instance => map dedans à remplir a partir de httppSession ,on met dans boucle l'invoke et  on met à jour le httpsession 
+on garde le nom du variable qu'on a mis le Map , et c'est sur lui qu'on clic le httpsession apres l'invoque du session
+clic => on boucle,le but c'est d'eviter le httpsession direct vers le dev
+pas de instance , sjuste session
 
 # Sprint 10 
 Méthode d’action 
