@@ -75,29 +75,26 @@ pas de instance , sjuste session
 
 # Sprint 10 
 Méthode d’action 
-Associer ao anaty URL 
-Ao anaty le methode reny tsy maintsy connecter vo afaka connecter amny 
-Connecte authentifier le olona vo afaka m’executer 
+Associer dans URL 
+dans les autres methode , il faut se connecter avant de connecter avec
+la personne doit Connecte authentifier pour pouvoir executer 
 
-Annotation tsy maintsy atao mipetraka eo de miverifier hoe authentifier eny sa tsia 
-Isakiny mahita ny annotation de verifiena hoe n’existe ce ty anarana variable 
-Aona ny alalany framework hoe in variable de session
-Configuration na convention
-Init Param de ty ny anarany variable a lalana hoe connecter na tsia 
-Omena ny Param ao anaty web.xml
+Annotation à mettre pour verifier si l'authentification est faite ou pas
+Lorsqu'une annotation est rencontrée, le système vérifie si le nom de variable spécifié existe.
+Le framework détermine la manière de gérer les variables de session, soit par le biais d'une configuration, soit en suivant une convention.
+Un paramètre d'initialisation (« Init Param ») définit le nom de la variable utilisée pour suivre si un utilisateur est connecté ou non.
+Ce paramètre est spécifié dans le fichier `web.xml`.
 Methode init 
 Servlet content 
-Authentifié ty olona ty 
+L'utilisateur est authentifié.
 Set attribut 
 
 # Sprint 10 bis
-
 Rôle spécifique 
-Rôle prof no afaka m’exécuter anty 
-Rôle maromaro
+Seul un rôle « prof » peut exécuter ceci.
+Rôles multiples.
 
 # Sprint-11 
 avant : dans notre app de test, on avait par exemple une classe EtudiantControl'er.java contenant des méthodes dedans et quand on entre dans cette classe, notre framework créé à chaque fois une instance de cet controller quand on l'appelle, par exemple on utilise méthode1 , méthode2 ....
-
 
 Objectif : rendre notre framework pour que lorsqu'il appelle un controller dans ce FrontControllerServlet , il instance UNE FOIS Seulement un contrôler et n'instance plus quand il appelle plus tard ce controller
